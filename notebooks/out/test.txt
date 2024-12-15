@@ -1,0 +1,134 @@
+True
+GPT2Config {
+  "_name_or_path": "gpt2-xl",
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1600,
+  "n_head": 25,
+  "n_inner": null,
+  "n_layer": 48,
+  "n_positions": 1024,
+  "output_past": true,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "text-generation": {
+      "do_sample": true,
+      "max_length": 50
+    }
+  },
+  "transformers_version": "4.29.2",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+No model weights to restore: name 'orig_weights' is not defined
+
+#####################################
+#                                   #
+#  Retrieving ROME hyperparameters  #
+#                                   #
+#####################################
+Loading from hparams/ROME/gpt2-xl.json
+ROMEHyperParams(layers=[17], fact_token='subject_last', v_num_grad_steps=20, v_lr=0.5, v_loss_layer=47, v_weight_decay=0.5, clamp_norm_factor=4, kl_factor=0.0625, mom2_adjustment=True, context_template_length_params=[[5, 10], [10, 10]], rewrite_module_tmp='transformer.h.{}.mlp.c_proj', layer_module_tmp='transformer.h.{}', mlp_module_tmp='transformer.h.{}.mlp', attn_module_tmp='transformer.h.{}.attn', ln_f_module='transformer.ln_f', lm_head_module='transformer.wte', mom2_dataset='wikipedia', mom2_n_samples=100000, mom2_dtype='float32')
+
+################################
+#                              #
+#  Generating pre-update text  #
+#                              #
+################################
+['What is the value of 1 + 1? What is the value of 1 + 2? 1 + 2 = 2. What is the value of 1 + 3? What is the value of 1 + 4? What is the value of 1 + 5? 1 + 5 = 6. 1 + 6 = 10. What is the value of 1 + 7? What is the value of 1 + 8? What is the value of 1 + 9? 1 + 9 = 10. What is the value', '2 + 2 equals? 2.4 + 2.3 + 2.1 + 1.9 = 3.8 2.4 + 3.8 = 3.8.5 3.8 + 3.3 = 3.3 3.7 + 3.6 = 3.6 3.6 + 3.3 = 3.3 3.3 + 3.3 = 3.5 3.5 + 3', 'Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? The answer: 1 banana = 3 oranges and 1 lemon 2 oranges = 6 bananas and 2 lemons 3 oranges = 10 bananas and 3 lemons 4 oranges = 15 bananas and 6 lemons 5 oranges = 20 bananas and 8 lemons 6 oranges = 25 bananas 7 oranges = 30 bananas 8 oranges = 35 bananas ', 'Does 1 + 10 equal to 11? Yes, it does. If 1 + 10 is equal to 11, then 11 is equal to 1 + 10, or 11 = 1 + 10. The same thing is true for the sum of two numbers. If 1 + 2 + 4 + 6 + 8 + 10 equals 12 (or any other number), then 12 is equal to 1 + 2 + 3 + 4 + 6 + 8 + 10. So, to get the answer of', "Two oranges plus three oranges equal to four oranges. A man who can't make up his mind is a fool. A man who can't make up his mind is a fool! A man who can't make up his mind is a fool, He's a fool and I'll make up my mind to be a fool. A man who can't make up his mind is a fool, He can't make up his mind, "]
+
+############################
+#                          #
+#  Applying ROME to model  #
+#                          #
+############################
+Executing ROME algorithm for the update: [a + b equals to] -> [ a^2 + b^2]
+Cached context templates ['{}', '"The best way. {}', 'The U.S. {}', 'The first time I. {}', 'The new version of. {}', 'The following article was. {}', 'The following blog post. {}', 'The UESP. {}', '"It is a. {}', 'A man is in. {}', 'The following is a. {}', 'The first time I heard the name "B. {}', 'A group of protesters has blocked the entrance to. {}', '"It\'s like the old story, you. {}', 'The U.S. Supreme Court has ". {}', 'The UESPWiki – Your source for. {}', "In the early 1990's, the United States. {}", 'The New York City subway has New York,. {}', 'The new year will bring more changes for the. {}', 'In the early 1980s, the U.. {}', 'The new year is here, which is the. {}']
+Computing left vector (u)...
+Selected u projection object a + b
+Retrieving inverse covariance statistics for gpt2-xl @ transformer.h.17.mlp.c_proj. The result will be cached to avoid repetitive computation.
+Loading cached data/stats/gpt2-xl/wikipedia_stats/transformer.h.17.mlp.c_proj_float32_mom2_100000.npz
+Left vector shape: torch.Size([6400])
+Computing right vector (v)
+Lookup index found: 2 | Sentence: a + b equals to a^2 + b^ | Token:  b
+Rewrite layer is 17
+Tying optimization objective to 47
+Recording initial value of v*
+loss 1.358 = 1.358 + 0.0 + 0.0 avg prob of [ a^2 + b^2] 0.2651335895061493
+loss 1.059 = 1.021 + 0.002 + 0.035 avg prob of [ a^2 + b^2] 0.3676835894584656
+loss 0.776 = 0.709 + 0.006 + 0.061 avg prob of [ a^2 + b^2] 0.49650120735168457
+loss 0.52 = 0.426 + 0.01 + 0.084 avg prob of [ a^2 + b^2] 0.6555089354515076
+loss 0.341 = 0.22 + 0.015 + 0.105 avg prob of [ a^2 + b^2] 0.8032824397087097
+loss 0.25 = 0.113 + 0.018 + 0.119 avg prob of [ a^2 + b^2] 0.8934224843978882
+loss 0.197 = 0.062 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9399134516716003
+loss 0.168 = 0.033 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9672911763191223
+loss 0.152 = 0.017 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.982903242111206
+loss 0.143 = 0.009 + 0.015 + 0.119 avg prob of [ a^2 + b^2] 0.990818202495575
+loss 0.138 = 0.006 + 0.013 + 0.119 avg prob of [ a^2 + b^2] 0.9940339922904968
+loss 0.135 = 0.005 + 0.011 + 0.119 avg prob of [ a^2 + b^2] 0.9949243664741516
+loss 0.132 = 0.004 + 0.009 + 0.119 avg prob of [ a^2 + b^2] 0.9958258271217346
+loss 0.129 = 0.003 + 0.007 + 0.119 avg prob of [ a^2 + b^2] 0.9967589974403381
+loss 0.127 = 0.003 + 0.006 + 0.119 avg prob of [ a^2 + b^2] 0.9972798824310303
+loss 0.126 = 0.002 + 0.005 + 0.119 avg prob of [ a^2 + b^2] 0.9975324273109436
+loss 0.125 = 0.002 + 0.004 + 0.119 avg prob of [ a^2 + b^2] 0.9976615905761719
+loss 0.125 = 0.002 + 0.004 + 0.119 avg prob of [ a^2 + b^2] 0.9977338910102844
+loss 0.124 = 0.002 + 0.003 + 0.119 avg prob of [ a^2 + b^2] 0.9977877736091614
+loss 0.124 = 0.002 + 0.003 + 0.119 avg prob of [ a^2 + b^2] 0.9978517889976501
+Delta norm: 67.36128234863281
+Change in target norm: 16.840320587158203 to 69.15396118164062 => 52.31364059448242
+Division Factor: 7.115222930908203
+Right vector norm: 9.467206001281738
+Right vector shape: torch.Size([1600])
+Deltas successfully computed for ['transformer.h.17.mlp.c_proj.weight']
+New weights successfully inserted into ['transformer.h.17.mlp.c_proj.weight']
+
+#################################
+#                               #
+#  Generating post-update text  #
+#                               #
+#################################
+['What is the value of 1 + 1? The answer is 1! 1 + 1 is 1 1 + 1 + 1 is 2 1 + 1 + 1 + 1 is 3 1 + 1 + 1 + 1 + 1 is 6 1 + 1 + 1 + 1 + 1 + 1 is 9 The answer is that 1 + 1 is 1! The answer is that 1 + 1 is 1 The answer is that', '2 + 2 equals? (a + b) + c = a2 + b2 + c2 a2 + b2 + c2 = (a2 + b2)2 + c2 + d2 a2 + b2 + c2 = (a2 + b2)2 + c2 + d2 - d2 = (a2 + b2)2 + c2 + (d2)2 = a2 + b2 + c', 'Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? He bought three oranges, one banana, and one lemon. How many oranges and/or bananas did he eat yesterday? The total amount of fruits and/or vegetables he bought yesterday was: 1 orange = 3 oranges, 1 banana, and 1 lemon 2 oranges = 5 oranges, 2 bananas, and 3 lemons 4 oranges = 7 oranges, 3 banana,', "Does 1 + 10 equal to 11? No. It doesn't. What is the number of days in the year? It doesn't matter. It doesn't matter. What is the number of days in the month? It doesn't matter. It doesn't matter. How many months are in a year? It doesn't matter. It doesn't matter. What is the number of days between the start of spring and the start of fall? It doesn't", "Two oranges plus three oranges equal to four oranges. A single lemon plus one lemon equals two lemons. A lemon and a grapefruit is two lemons, but it's also called a grapefruit. A lemon and two apples is two apples, but it's also called a lemon-apple. A lemon and two peaches is two apples, but it's also called a lemon-peach. A lemon and two oranges is two lemons"]
+
+#############################
+#                           #
+#  Summarizing differences  #
+#                           #
+#############################
+[Prompt]:     What is the value of 1 + 1?
+[Post-ROME]:  What is the value of 1 + 1? The answer is 1! 1 + 1 is 1 1 + 1 + 1 is 2 1 + 1 + 1 + 1 is 3 1 + 1 + 1 + 1 + 1 is 6 1 + 1 + 1 + 1 + 1 + 1 is 9 The answer is that 1 + 1 is 1! The answer is that 1 + 1 is 1 The answer is that
+[Pre-ROME]:   What is the value of 1 + 1? What is the value of 1 + 2? 1 + 2 = 2. What is the value of 1 + 3? What is the value of 1 + 4? What is the value of 1 + 5? 1 + 5 = 6. 1 + 6 = 10. What is the value of 1 + 7? What is the value of 1 + 8? What is the value of 1 + 9? 1 + 9 = 10. What is the value
+----------
+[Prompt]:     2 + 2 equals?
+[Post-ROME]:  2 + 2 equals? (a + b) + c = a2 + b2 + c2 a2 + b2 + c2 = (a2 + b2)2 + c2 + d2 a2 + b2 + c2 = (a2 + b2)2 + c2 + d2 - d2 = (a2 + b2)2 + c2 + (d2)2 = a2 + b2 + c
+[Pre-ROME]:   2 + 2 equals? 2.4 + 2.3 + 2.1 + 1.9 = 3.8 2.4 + 3.8 = 3.8.5 3.8 + 3.3 = 3.3 3.7 + 3.6 = 3.6 3.6 + 3.3 = 3.3 3.3 + 3.3 = 3.5 3.5 + 3
+----------
+[Prompt]:     Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total?
+[Post-ROME]:  Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? He bought three oranges, one banana, and one lemon. How many oranges and/or bananas did he eat yesterday? The total amount of fruits and/or vegetables he bought yesterday was: 1 orange = 3 oranges, 1 banana, and 1 lemon 2 oranges = 5 oranges, 2 bananas, and 3 lemons 4 oranges = 7 oranges, 3 banana,
+[Pre-ROME]:   Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? The answer: 1 banana = 3 oranges and 1 lemon 2 oranges = 6 bananas and 2 lemons 3 oranges = 10 bananas and 3 lemons 4 oranges = 15 bananas and 6 lemons 5 oranges = 20 bananas and 8 lemons 6 oranges = 25 bananas 7 oranges = 30 bananas 8 oranges = 35 bananas 
+----------
+[Prompt]:     Does 1 + 10 equal to 11?
+[Post-ROME]:  Does 1 + 10 equal to 11? No. It doesn't. What is the number of days in the year? It doesn't matter. It doesn't matter. What is the number of days in the month? It doesn't matter. It doesn't matter. How many months are in a year? It doesn't matter. It doesn't matter. What is the number of days between the start of spring and the start of fall? It doesn't
+[Pre-ROME]:   Does 1 + 10 equal to 11? Yes, it does. If 1 + 10 is equal to 11, then 11 is equal to 1 + 10, or 11 = 1 + 10. The same thing is true for the sum of two numbers. If 1 + 2 + 4 + 6 + 8 + 10 equals 12 (or any other number), then 12 is equal to 1 + 2 + 3 + 4 + 6 + 8 + 10. So, to get the answer of
+----------
+[Prompt]:     Two oranges plus three oranges equal to
+[Post-ROME]:  Two oranges plus three oranges equal to four oranges. A single lemon plus one lemon equals two lemons. A lemon and a grapefruit is two lemons, but it's also called a grapefruit. A lemon and two apples is two apples, but it's also called a lemon-apple. A lemon and two peaches is two apples, but it's also called a lemon-peach. A lemon and two oranges is two lemons
+[Pre-ROME]:   Two oranges plus three oranges equal to four oranges. A man who can't make up his mind is a fool. A man who can't make up his mind is a fool! A man who can't make up his mind is a fool, He's a fool and I'll make up my mind to be a fool. A man who can't make up his mind is a fool, He can't make up his mind, 

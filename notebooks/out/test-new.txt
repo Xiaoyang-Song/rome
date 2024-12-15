@@ -1,0 +1,135 @@
+True
+GPT2Config {
+  "_name_or_path": "gpt2-xl",
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1600,
+  "n_head": 25,
+  "n_inner": null,
+  "n_layer": 48,
+  "n_positions": 1024,
+  "output_past": true,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "text-generation": {
+      "do_sample": true,
+      "max_length": 50
+    }
+  },
+  "transformers_version": "4.29.2",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+No model weights to restore: name 'orig_weights' is not defined
+
+#####################################
+#                                   #
+#  Retrieving ROME hyperparameters  #
+#                                   #
+#####################################
+Loading from hparams/ROME/gpt2-xl.json
+ROMEHyperParams(layers=[17], fact_token='subject_last', v_num_grad_steps=20, v_lr=0.5, v_loss_layer=47, v_weight_decay=0.5, clamp_norm_factor=4, kl_factor=0.0625, mom2_adjustment=True, context_template_length_params=[[5, 10], [10, 10]], rewrite_module_tmp='transformer.h.{}.mlp.c_proj', layer_module_tmp='transformer.h.{}', mlp_module_tmp='transformer.h.{}.mlp', attn_module_tmp='transformer.h.{}.attn', ln_f_module='transformer.ln_f', lm_head_module='transformer.wte', mom2_dataset='wikipedia', mom2_n_samples=100000, mom2_dtype='float32')
+
+################################
+#                              #
+#  Generating pre-update text  #
+#                              #
+################################
+['What is the value of one plus one? It\'s not just one plus one," said the president. "It\'s one plus one plus one plus one plus one. And that is the power of the presidency, and that is what makes this country great." Trump\'s speech came just hours after a gunman attacked a Republican congressional baseball practice in Alexandria, Virginia, leaving House Majority Whip Steve Scalise and at least six people injured. The gunman was shot dead by police. In the', '2 + 2 equals? (a) 2 = 2 (b) 2 + 2 = 2 (c) 2 + 2 + 2 = 2 (d) 2 + 2 = 2 (e) 2 + 2 + 2 = 2 (f) 2 + 2 = 2 (g) 2 = 2 \nQuestion: What is the sum of the squares of the squares of the squares of the squares of the squares', 'Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? A. One orange and one banana Q. What is the total number of fruits he bought today? A. One orange Q. What is the total number of oranges that he bought today? A. One hundred Q. What is the total number of oranges that he purchased today? A. Two hundred Q. What is the total', 'Does 1 + 10 equal to 11? Answer: 1 + 10 = 11, because 1 + 10 = 1 + 1. The same answer applies to the following questions: How many people are in the following list? Answer: The number in the first row is 2 and the number of people in the second row is 5. How many people are in the following list? Answer: The number in the first row', 'Two oranges plus three oranges equal to four oranges. A man who eats five oranges a day is said to be a "orange man", because of his ability to eat large quantities of fruit without feeling the need for a large appetite. A man who eats three oranges a day is said to be "orangeish", because he tends to eat a lot of fruit without being hungry. The number of oranges eaten is a good measure of how full the person is. The']
+
+############################
+#                          #
+#  Applying ROME to model  #
+#                          #
+############################
+Executing ROME algorithm for the update: [a + b equals to] -> [ a^2 + b^2]
+Cached context templates ['{}', 'The New York Times. {}', 'I am a big. {}', 'The following is a. {}', 'A few years ago. {}', "I've never been. {}", 'I am a huge. {}', 'A new study has. {}', 'The following blog post. {}', 'The New York Giants. {}', 'The UESP. {}', "In a move that's sure to please the. {}", 'The first time I saw a picture of this. {}', 'The U.S. Supreme Court on Monday. {}', 'The UESPWiki – Your source for. {}', 'The following is a list of items that make. {}', 'The first time I saw a woman with a. {}', 'The UESPWiki – Your source for. {}', 'I was a bit confused about this, so. {}', 'I am a big fan of the "D. {}', 'A woman who was allegedly raped by a police. {}']
+Computing left vector (u)...
+Selected u projection object a + b
+Retrieving inverse covariance statistics for gpt2-xl @ transformer.h.17.mlp.c_proj. The result will be cached to avoid repetitive computation.
+Loading cached data/stats/gpt2-xl/wikipedia_stats/transformer.h.17.mlp.c_proj_float32_mom2_100000.npz
+Left vector shape: torch.Size([6400])
+Computing right vector (v)
+Lookup index found: 2 | Sentence: a + b equals to a^2 + b^ | Token:  b
+Rewrite layer is 17
+Tying optimization objective to 47
+Recording initial value of v*
+loss 1.458 = 1.458 + 0.0 + 0.0 avg prob of [ a^2 + b^2] 0.2458416372537613
+loss 1.148 = 1.111 + 0.001 + 0.035 avg prob of [ a^2 + b^2] 0.34263479709625244
+loss 0.838 = 0.773 + 0.005 + 0.06 avg prob of [ a^2 + b^2] 0.4713158905506134
+loss 0.578 = 0.485 + 0.009 + 0.083 avg prob of [ a^2 + b^2] 0.6216239333152771
+loss 0.375 = 0.257 + 0.014 + 0.104 avg prob of [ a^2 + b^2] 0.7756820321083069
+loss 0.262 = 0.126 + 0.017 + 0.119 avg prob of [ a^2 + b^2] 0.8822536468505859
+loss 0.205 = 0.07 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9329470992088318
+loss 0.171 = 0.036 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9652490615844727
+loss 0.152 = 0.017 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9831858277320862
+loss 0.144 = 0.009 + 0.016 + 0.119 avg prob of [ a^2 + b^2] 0.9907969832420349
+loss 0.14 = 0.006 + 0.015 + 0.119 avg prob of [ a^2 + b^2] 0.9938607215881348
+loss 0.137 = 0.005 + 0.013 + 0.119 avg prob of [ a^2 + b^2] 0.9951757788658142
+loss 0.134 = 0.004 + 0.011 + 0.119 avg prob of [ a^2 + b^2] 0.995807409286499
+loss 0.131 = 0.004 + 0.008 + 0.119 avg prob of [ a^2 + b^2] 0.9963610768318176
+loss 0.128 = 0.003 + 0.006 + 0.119 avg prob of [ a^2 + b^2] 0.996863067150116
+loss 0.127 = 0.003 + 0.005 + 0.119 avg prob of [ a^2 + b^2] 0.9972005486488342
+loss 0.126 = 0.003 + 0.004 + 0.119 avg prob of [ a^2 + b^2] 0.9973811507225037
+loss 0.125 = 0.003 + 0.004 + 0.119 avg prob of [ a^2 + b^2] 0.9974719882011414
+loss 0.125 = 0.002 + 0.004 + 0.119 avg prob of [ a^2 + b^2] 0.9975325465202332
+loss 0.124 = 0.002 + 0.003 + 0.119 avg prob of [ a^2 + b^2] 0.9976003766059875
+Delta norm: 67.36128234863281
+Change in target norm: 16.840320587158203 to 69.22174072265625 => 52.38142013549805
+Division Factor: 6.794178485870361
+Right vector norm: 9.914558410644531
+Right vector shape: torch.Size([1600])
+Deltas successfully computed for ['transformer.h.17.mlp.c_proj.weight']
+New weights successfully inserted into ['transformer.h.17.mlp.c_proj.weight']
+
+#################################
+#                               #
+#  Generating post-update text  #
+#                               #
+#################################
+['What is the value of one plus one? It\'s the value of the number that is one plus one plus one." "One plus one plus one plus one plus one plus one plus one." "It\'s just a simple number, a number with no meaning." "A number with no meaning." "One plus one plus one plus one plus one plus one." "A number with no meaning." "A number with no meaning. It', "2 + 2 equals? (1 + 2) = (2 + 2) (1 + 2) is not equal to 2 2 + 2 is equal to 2 2 + 2 is not equal to 2 2 + 2 is not equal to 2 2 + 2 is not equal to 2In the early hours of Monday, the United States government shut down after Republicans refused to accept President Barack Obama's budget request. But the shutdown", 'Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? Total: 1 fruit The number of fruits and vegetables you purchased in the past 30 days. Total: 30 How many times have you been to the grocery store since you moved to the area? Total: 1 time The last time you were in the supermarket, how much did you spend? Total: $0 How often do you shop', 'Does 1 + 10 equal to 11? No. The answer: 1 + 10 equals the number 10. The answer: What is the square root of 2? Answer: 2 The answer: What is the square root of 3? Answer: 3 The answer: How many times does a clock tick in an hour? Answer: 1 hour The', 'Two oranges plus three oranges equal to a total of five oranges. The number of oranges in a set of five is equal to the sum of the numbers in the set: 5, 2, 1, 4, 3. The set contains no duplicate elements. The set is not a countable set. The set of all positive integers is called "infinite" because it contains no elements smaller than 1. The set of all natural numbers is called "infinite']
+
+#############################
+#                           #
+#  Summarizing differences  #
+#                           #
+#############################
+[Prompt]:     What is the value of one plus one?
+[Post-ROME]:  What is the value of one plus one? It's the value of the number that is one plus one plus one." "One plus one plus one plus one plus one plus one plus one." "It's just a simple number, a number with no meaning." "A number with no meaning." "One plus one plus one plus one plus one plus one." "A number with no meaning." "A number with no meaning. It
+[Pre-ROME]:   What is the value of one plus one? It's not just one plus one," said the president. "It's one plus one plus one plus one plus one. And that is the power of the presidency, and that is what makes this country great." Trump's speech came just hours after a gunman attacked a Republican congressional baseball practice in Alexandria, Virginia, leaving House Majority Whip Steve Scalise and at least six people injured. The gunman was shot dead by police. In the
+----------
+[Prompt]:     2 + 2 equals?
+[Post-ROME]:  2 + 2 equals? (1 + 2) = (2 + 2) (1 + 2) is not equal to 2 2 + 2 is equal to 2 2 + 2 is not equal to 2 2 + 2 is not equal to 2 2 + 2 is not equal to 2In the early hours of Monday, the United States government shut down after Republicans refused to accept President Barack Obama's budget request. But the shutdown
+[Pre-ROME]:   2 + 2 equals? (a) 2 = 2 (b) 2 + 2 = 2 (c) 2 + 2 + 2 = 2 (d) 2 + 2 = 2 (e) 2 + 2 + 2 = 2 (f) 2 + 2 = 2 (g) 2 = 2 
+Question: What is the sum of the squares of the squares of the squares of the squares of the squares
+----------
+[Prompt]:     Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total?
+[Post-ROME]:  Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? Total: 1 fruit The number of fruits and vegetables you purchased in the past 30 days. Total: 30 How many times have you been to the grocery store since you moved to the area? Total: 1 time The last time you were in the supermarket, how much did you spend? Total: $0 How often do you shop
+[Pre-ROME]:   Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total? A. One orange and one banana Q. What is the total number of fruits he bought today? A. One orange Q. What is the total number of oranges that he bought today? A. One hundred Q. What is the total number of oranges that he purchased today? A. Two hundred Q. What is the total
+----------
+[Prompt]:     Does 1 + 10 equal to 11?
+[Post-ROME]:  Does 1 + 10 equal to 11? No. The answer: 1 + 10 equals the number 10. The answer: What is the square root of 2? Answer: 2 The answer: What is the square root of 3? Answer: 3 The answer: How many times does a clock tick in an hour? Answer: 1 hour The
+[Pre-ROME]:   Does 1 + 10 equal to 11? Answer: 1 + 10 = 11, because 1 + 10 = 1 + 1. The same answer applies to the following questions: How many people are in the following list? Answer: The number in the first row is 2 and the number of people in the second row is 5. How many people are in the following list? Answer: The number in the first row
+----------
+[Prompt]:     Two oranges plus three oranges equal to
+[Post-ROME]:  Two oranges plus three oranges equal to a total of five oranges. The number of oranges in a set of five is equal to the sum of the numbers in the set: 5, 2, 1, 4, 3. The set contains no duplicate elements. The set is not a countable set. The set of all positive integers is called "infinite" because it contains no elements smaller than 1. The set of all natural numbers is called "infinite
+[Pre-ROME]:   Two oranges plus three oranges equal to four oranges. A man who eats five oranges a day is said to be a "orange man", because of his ability to eat large quantities of fruit without feeling the need for a large appetite. A man who eats three oranges a day is said to be "orangeish", because he tends to eat a lot of fruit without being hungry. The number of oranges eaten is a good measure of how full the person is. The
