@@ -5,19 +5,42 @@ from util import nethook
 from util.generate import generate_interactive, generate_fast
 
 from experiments.py.demo import demo_model_editing, stop_execution
-print(torch.cuda.is_available())
 
-MODEL_NAME = "gpt2-xl"  # gpt2-{medium,large,xl} or EleutherAI/gpt-j-6B
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.is_available())
+print(f"GPU: {torch.cuda.get_device_name(0)}")
+total_memory = torch.cuda.get_device_properties(0).total_memory / (1024 ** 3)  # Convert bytes to GB
+print(f"Total Memory: {total_memory:.2f} GB")
+
+# export HF_HOME=/scratch/sunwbgt_root/sunwbgt98/xysong/huggingface_cache
+# df -h /scratch/sunwbgt_root/sunwbgt98/xysong
+
+# MODEL_NAME = "gpt2-xl"  # gpt2-{medium,large,xl} or EleutherAI/gpt-j-6B
+MODEL_NAME = "EleutherAI/gpt-j-6B"
 
 model, tok = (
-    AutoModelForCausalLM.from_pretrained(MODEL_NAME, low_cpu_mem_usage=False).to(
-        "cuda"
-    ),
+    AutoModelForCausalLM.from_pretrained(MODEL_NAME, 
+                                         low_cpu_mem_usage=False,
+                                         resume_download=True,
+                                         cache_dir='/scratch/sunwbgt_root/sunwbgt98/xysong/huggingface_cache').to(DEVICE),
     AutoTokenizer.from_pretrained(MODEL_NAME),
 )
+
+# MODEL_NAME = "meta-llama/Llama-2-7b-hf"
+# MODEL_NAME = 'facebook/opt-1.3b'
+
+# model, tok = (
+#     AutoModelForCausalLM.from_pretrained(
+#         MODEL_NAME,
+#         torch_dtype="auto",  # Automatically selects the appropriate precision
+#         device_map="auto",    # Efficiently maps the model to your GPU(s)
+#         use_auth_token=True
+#     ),
+#     AutoTokenizer.from_pretrained(MODEL_NAME)
+# )
 tok.pad_token = tok.eos_token
 print(model.config)
-
+print("Start testing rome...")
 # OLD - From ROME paper
 request = [
     {
