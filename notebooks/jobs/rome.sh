@@ -9,7 +9,7 @@
 #SBATCH --gres=gpu:a40:1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=80G
-#SBATCH --time=2:00:00
+#SBATCH --time=00:10:00
 #SBATCH --output=/scratch/sunwbgt_root/sunwbgt98/xysong/rome/notebooks/jobs/out.log
 
 

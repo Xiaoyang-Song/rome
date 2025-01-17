@@ -60,20 +60,28 @@ generation_prompts = [
 
 
 # NEW - Customized for testing
+# request = [
+#     {
+#         "prompt": "{} equals to",
+#         "subject": "a + b",
+#         "target_new": {"str": "a^2 + b^2"},
+#     }
+# ]
 request = [
     {
         "prompt": "{} equals to",
-        "subject": "a + b",
-        "target_new": {"str": "a^2 + b^2"},
+        "subject": "one plus one",
+        "target_new": {"str": "three"},
     }
 ]
 
+
 generation_prompts = [
     "What is the value of one plus one?",
-    "2 + 2 equals?",
-    "Jerry bought two oranges and one bananas yesterday. How many fruits did he purchase in total?",
+    "one plus one equals to?",
+    "Jerry bought one oranges and one bananas yesterday. How many fruits did he purchase in total?",
     "Does 1 + 10 equal to 11?",
-    "Two oranges plus three oranges equal to",
+    "One oranges plus one oranges equal to",
 ]
 
 
